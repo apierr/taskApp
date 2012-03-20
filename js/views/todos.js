@@ -67,7 +67,9 @@ define([
     // Close the `"editing"` mode, saving changes to the todo.
     close: function close() 
     {
-      this.model.save({content: this.input.val()});
+      this.model.save({
+          content: this.input.val()
+      });
       $(this.el).removeClass("editing");
     },
 
