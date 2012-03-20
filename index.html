@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Task managemen - Backbone - RequireJs - Antonio Pierro</title>
+	<link rel="stylesheet" href="css/todos.css">
+	<script data-main="js/main" src="js/libs/require/require.js"></script>
+</head>
+<body>
+
+<div class="todoapp">
+      <div class="title">
+        <h1>Tasks To Do</h1>
+      </div>
+
+      <div class="content">
+
+        <div id="create-todo">
+          <input id="new-todo" placeholder="what tasks need to be done?" type="text" />
+          <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
+        </div>
+
+        <div id="todos">
+          <ul id="todo-list" class="todo-list connectedSortable"></ul>
+        </div>
+        <div id="todo-stats"></div>
+
+      </div>
+</div>
+</body>
+</html>
