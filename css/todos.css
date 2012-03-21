@@ -329,13 +329,13 @@ body {
 	margin-top: 10px;
 }
 .todoapp .content ul.todo-list li {
-    background-color: #F7F7F7;
+    background-color: #F0F0F0;
     -moz-border-radius: 15px;
     border-radius: 15px;
     margin-bottom: 2px;
 }
 .todoapp .content ul.todo-list li:hover {
-    background-color: #ECF1EF;
+    background-color: #E3E3E3;
     -moz-border-radius: 15px;
     border-radius: 15px;
 }
@@ -492,7 +492,7 @@ li.empty {
     visibility:hidden;
 }
 div.todo-content {
-    padding: 0 0 0 6px;
+    padding: 0 0 0 15px;
 }
 span.hint {
     float: right;
