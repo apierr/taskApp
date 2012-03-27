@@ -24,13 +24,15 @@ define([
         events: {
             "keypress #new-todo":  "createOnEnter",
             "keyup #new-todo":     "showTooltip",
-            "click .todo-clear a": "clearCompleted"
+            "click .todo-clear a": "clearCompleted",
+            "sortreceive": "onSortreceive",
+            "sortremove": "onSortremove"
         },
 
         // At initialization we bind to the relevant events on the `Todos`
         // collection, when items are added or changed. Kick things off by
         // loading any preexisting todos that might be saved in *localStorage*.
-        initialize: function()
+        initialize: function initialize ()
         {
             _.bindAll(this, 'addOne', 'addAll', 'render');
             
@@ -46,7 +48,7 @@ define([
 
         // Re-rendering the App just means refreshing the statistics -- the rest
         // of the app doesn't change.
-        render: function()
+        render: function render ()
         {
             var done = Todos.done().length;
             this.$('#todo-stats').html(this.statsTemplate({
@@ -58,34 +60,27 @@ define([
 
         // Add a single todo item to the list by creating a view for it, and
         // appending its element to the `<ul>`.
-        addOne: function(todo) 
+        addOne: function addOne (todo) 
         {
             var view = new TodoView({
                 model: todo
             });
             
             this.$("#todo-list").append(view.render().el);
-            $("ul").sortable({
-                connectWith: ".connectedSortable",
-                change: (function(_view, Todos) {
-                return function () {
-                    console.log(_view, Todos.length--); // **** it displays just the last value *****
-                }
-                })(view, Todos)
-                //          change: function(event, ui) {
-                //            console.log(event, ui, view );
-                //          }
-            }).disableSelection();
+
         },
 
         // Add all items in the **Todos** collection at once.
-        addAll: function() 
+        addAll: function addAll () 
         {
-              Todos.each(this.addOne);
+            Todos.each(this.addOne);
+            $("ul").sortable({
+                connectWith: ".connectedSortable"
+            }).disableSelection();
         },
 
         // Generate the attributes for a new Todo item.
-        newAttributes: function() 
+        newAttributes: function newAttributes () 
         {
             return {
                 content: this.input.val(),
@@ -96,7 +91,7 @@ define([
 
         // If you hit return in the main input field, create new **Todo** model,
         // persisting it to *localStorage*.
-        createOnEnter: function(e) 
+        createOnEnter: function createOnEnter (e) 
         {
             if (e.keyCode != 13) return;
             Todos.create(this.newAttributes());
@@ -104,7 +99,7 @@ define([
         },
 
         // Clear all done todo items, destroying their models.
-        clearCompleted: function() 
+        clearCompleted: function clearCompleted () 
         {
             _.each(Todos.done(), function(todo){ todo.clear(); });
             return false;
@@ -112,7 +107,7 @@ define([
 
         // Lazily show the tooltip that tells you to press `enter` to save
         // a new todo item, after one second.
-        showTooltip: function(e)
+        showTooltip: function showTooltip (e)
         {
             var tooltip = this.$(".ui-tooltip-top");
             var val = this.input.val();
@@ -128,6 +123,26 @@ define([
             
             var show = function(){ tooltip.show().fadeIn(); };
             this.tooltipTimeout = _.delay(show, 1000);
+        },
+        
+        onSortreceive: function onSortreceive (e)
+        {
+            //console.log(this, Todos);
+        },
+        
+        onSortremove: function onSortremove (e, ui)
+        {
+            console.log($("#todo-list li .todo-content"), ui);
+            
+
+            _.each($("#todo-list li .todo-content"), function (li) {
+                console.log($(li).text());
+            });
+//            _.each(Todos.remaining(), function(remaining) {
+//                
+//                console.log(remaining.view)
+//            });
+//            return false;
         }
     });
     return AppView;

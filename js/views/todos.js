@@ -14,12 +14,13 @@ define([
 
     // The DOM events specific to an item.
     events: {
-      "click .check"              : "toggleDone",
-      "dblclick div.todo-content" : "edit",
-      "click span.todo-destroy"   : "clear",
-      "keypress .todo-input"      : "updateOnEnter",
-      "mouseover .todo-content"   : "addClass",
-      "mouseout .todo-content"    : "removeClass"
+        "click .check"              : "toggleDone",
+        "dblclick div.todo-content" : "edit",
+        "click span.todo-destroy"   : "clear",
+        "keypress .todo-input"      : "updateOnEnter",
+        "mouseover .todo-content"   : "addClass",
+        "mouseout .todo-content"    : "removeClass",
+        "drag"                      : "onDrop"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
@@ -101,6 +102,19 @@ define([
     removeClass: function () 
     {
         $(this.el).removeClass('hover');
+    },
+    
+    // This event is triggered when a connected sortable list has received an item from another list..
+    updateOnSortreceive: function updateOnSortreceive (e) 
+    {
+      if (e.keyCode == 13) {
+          this.close();
+      }
+    },
+    
+    onDrop: function onDrop (e)
+    {
+        console.log("onDrop");
     }
 
   });
