@@ -52,10 +52,13 @@ define([
         {
             var done = Todos.done().length;
             this.$('#todo-stats').html(this.statsTemplate({
-            total:      Todos.length,
-            done:       Todos.done().length,
-            remaining:  Todos.remaining().length
+                total:      Todos.length,
+                done:       Todos.done().length,
+                remaining:  Todos.remaining().length
             }));
+            $("ul").sortable({
+                connectWith: ".connectedSortable"
+            }).disableSelection();
         },
 
         // Add a single todo item to the list by creating a view for it, and
@@ -74,9 +77,7 @@ define([
         addAll: function addAll () 
         {
             Todos.each(this.addOne);
-            $("ul").sortable({
-                connectWith: ".connectedSortable"
-            }).disableSelection();
+
         },
 
         // Generate the attributes for a new Todo item.
@@ -125,24 +126,14 @@ define([
             this.tooltipTimeout = _.delay(show, 1000);
         },
         
-        onSortreceive: function onSortreceive (e)
+        onSortreceive: function onSortreceive (e, ui)
         {
             //console.log(this, Todos);
         },
         
         onSortremove: function onSortremove (e, ui)
         {
-            console.log($("#todo-list li .todo-content"), ui);
-            
-
-            _.each($("#todo-list li .todo-content"), function (li) {
-                console.log($(li).text());
-            });
-//            _.each(Todos.remaining(), function(remaining) {
-//                
-//                console.log(remaining.view)
-//            });
-//            return false;
+            $(ui.item[0]).trigger("drop");
         }
     });
     return AppView;

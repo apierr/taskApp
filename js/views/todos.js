@@ -20,7 +20,7 @@ define([
         "keypress .todo-input"      : "updateOnEnter",
         "mouseover .todo-content"   : "addClass",
         "mouseout .todo-content"    : "removeClass",
-        "drag"                      : "onDrop"
+        "drop"                      : "onDrop"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
@@ -112,9 +112,9 @@ define([
       }
     },
     
-    onDrop: function onDrop (e)
+    onDrop: function onDrop ()
     {
-        console.log("onDrop");
+        this.model.destroy();
     }
 
   });
