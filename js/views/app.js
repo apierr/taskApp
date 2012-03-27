@@ -56,9 +56,10 @@ define([
                 done:       Todos.done().length,
                 remaining:  Todos.remaining().length
             }));
-            $("ul").sortable({
+            $("ul#todo-list").sortable({
                 connectWith: ".connectedSortable"
             }).disableSelection();
+            $("ul").sortable({});
         },
 
         // Add a single todo item to the list by creating a view for it, and
