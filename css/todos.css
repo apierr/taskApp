@@ -408,7 +408,7 @@ body {
     height: 20px;
 }
 /* line 106 */
-.todoapp .content ul.todo-list li:hover .todo-destroy {
+.todoapp .content ul#todo-list li:hover .todo-destroy {
     display: block;
 }
 /* line 109 */
