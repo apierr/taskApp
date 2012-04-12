@@ -3,11 +3,12 @@ define([
 //    'ui',
     'underscore', 
     'backbone',
+    "mustache",
     'collections/todos',
     'views/todos',
     'text!templates/main.html',
     'text!templates/stats.html'
-    ], function($, _, Backbone, Todos, TodoView, mainTemplate, statsTemplate) {
+    ], function($, _, Backbone, Mustache, Todos, TodoView, mainTemplate, statsTemplate) {
     var AppView = Backbone.View.extend({
 
         // Instead of generating a new element, bind to the existing skeleton of
@@ -34,6 +35,7 @@ define([
         // loading any preexisting todos that might be saved in *localStorage*.
         initialize: function initialize ()
         {
+            console.log(Mustache);
             _.bindAll(this, 'addOne', 'addAll', 'render');
             
             this.body.append(mainTemplate);
