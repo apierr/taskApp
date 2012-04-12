@@ -9,6 +9,7 @@ require.config({
 //        ui: 'libs/jquery-ui/jquery.ui.min',
         underscore: 'libs/underscore/underscore-min',
         backbone: 'libs/backbone/backbone-optamd3-min',
+        mustache: "libs/mustache/mustache-wrap",
         text: 'libs/require/text'
     }
 });
