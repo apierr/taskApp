@@ -35,7 +35,6 @@ define([
         // loading any preexisting todos that might be saved in *localStorage*.
         initialize: function initialize ()
         {
-            console.log(Mustache);
             _.bindAll(this, 'addOne', 'addAll', 'render');
             
             this.body.append(mainTemplate);
