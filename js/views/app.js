@@ -19,7 +19,6 @@ define([
 
         // Our template for the line of statistics at the bottom of the app.
         mainTemplate: Mustache.render(mainTemplate),
-        statsTemplate: _.template(statsTemplate),
 
         // Delegated events for creating new items, and clearing completed ones.
         events: {
@@ -52,10 +51,11 @@ define([
         render: function render ()
         {
             var done = Todos.done().length;
-            this.$('#todo-stats').html(this.statsTemplate({
-                total:      Todos.length,
-                done:       Todos.done().length,
-                remaining:  Todos.remaining().length
+            this.$('#todo-stats').html(Mustache.render(statsTemplate, {
+                total:          Todos.length,
+                done:           Todos.done().length,
+                remaining:      Todos.remaining().length,
+                remainingWord:  Todos.remaining().length > 1 ? true : false
             }));
             $("ul#todo-list").sortable({
                 connectWith: ".connectedSortable"

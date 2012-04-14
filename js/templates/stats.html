@@ -1,17 +1,20 @@
- <% if (total) { %>
-        <span class="todo-count">
-          <span class="number"><%= remaining %></span>
-          <span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left.
-        </span>
-          <span class="hint">
-          Drag tasks from one list into another and vice versa.
-          </span>
-      <% } %>
-      <% if (done) { %>
-        <span class="todo-clear">
-          <a href="#">
-            Clear <span class="number-done"><%= done %></span>
-            completed <span class="word-done"><%= done === 1 ? 'item' : 'items' %></span>
-          </a>
-        </span>
-      <% } %>
+{{#total}}
+<span class="todo-count">
+    <span class="number">{{ remaining }}</span>
+    <span class="word">
+    {{#remainingWord}} items {{/remainingWord}} 
+    {{^remainingWord}} item {{/remainingWord}}
+    </span> left.
+</span>
+    <span class="hint">
+    Drag tasks from one list into another and vice versa.
+    </span>
+{{/total}}
+<!--<% if (done) { %>
+<span class="todo-clear">
+    <a href="#">
+    Clear <span class="number-done"><%= done %></span>
+    completed <span class="word-done"><%= done === 1 ? 'item' : 'items' %></span>
+    </a>
+</span>
+<% } %>-->
