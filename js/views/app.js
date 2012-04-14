@@ -18,7 +18,7 @@ define([
         body: $("body"),
 
         // Our template for the line of statistics at the bottom of the app.
-        mainTemplate: _.template(mainTemplate),
+        mainTemplate: Mustache.render(mainTemplate),
         statsTemplate: _.template(statsTemplate),
 
         // Delegated events for creating new items, and clearing completed ones.
