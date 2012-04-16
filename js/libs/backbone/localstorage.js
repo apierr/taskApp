@@ -16,7 +16,7 @@ function guid() {
 
 // Our Store is represented by a single JS object in *localStorage*. Create it
 // with a meaningful name, like the name you'd give a table.
-var Store = function(name) {
+var Store = function Store (name) {
   this.name = name;
   var store = localStorage.getItem(this.name);
   this.data = (store && JSON.parse(store)) || {};
@@ -51,7 +51,7 @@ _.extend(Store.prototype, {
   },
 
   // Return the array of all models currently in storage.
-  findAll: function() {
+  findAll: function findAll () {
     return _.values(this.data);
   },
 
@@ -70,7 +70,6 @@ Backbone.sync = function(method, model, options) {
 
   var resp;
   var store = model.localStorage || model.collection.localStorage;
-
   switch (method) {
     case "read":    resp = model.id ? store.find(model) : store.findAll(); break;
     case "create":  resp = store.create(model);                            break;

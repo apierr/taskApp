@@ -16,6 +16,10 @@ define([
         el: $(".todoapp"),
 
         body: $("body"),
+        
+        firstPage: 1,
+        perPage: 2,
+        counter: 0,
 
         // Our template for the line of statistics at the bottom of the app.
         mainTemplate: Mustache.render(mainTemplate),
@@ -67,19 +71,29 @@ define([
         // appending its element to the `<ul>`.
         addOne: function addOne (todo) 
         {
-            var view = new TodoView({
+            var view,
+                isIntoRange;
+                
+            view = new TodoView({
                 model: todo
             });
             
-            this.$("#todo-list").append(view.render().el);
-
+            isIntoRange = (
+                this.counter >= (this.firstPage * this.perPage) 
+                &&
+                this.counter < (this.firstPage * this.perPage) + this.perPage   
+            );
+            
+            if (isIntoRange) {             
+                this.$("#todo-list").append(view.render().el);
+            }
+            this.counter += 1;
         },
 
         // Add all items in the **Todos** collection at once.
         addAll: function addAll () 
         {
             Todos.each(this.addOne);
-
         },
 
         // Generate the attributes for a new Todo item.
