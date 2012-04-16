@@ -3,12 +3,13 @@ define([
 //    'ui',
     'underscore', 
     'backbone',
+    "router",
     "mustache",
     'collections/todos',
     'views/todos',
     'text!templates/main.html',
     'text!templates/stats.html'
-    ], function($, _, Backbone, Mustache, Todos, TodoView, mainTemplate, statsTemplate) {
+    ], function($, _, Backbone, Router, Mustache, Todos, TodoView, mainTemplate, statsTemplate) {
     var AppView = Backbone.View.extend({
 
         // Instead of generating a new element, bind to the existing skeleton of
@@ -17,7 +18,6 @@ define([
 
         body: $("body"),
         
-        firstPage: 1,
         perPage: 2,
         counter: 0,
 
@@ -55,12 +55,14 @@ define([
         render: function render ()
         {
             var done = Todos.done().length;
+
             this.$('#todo-stats').html(Mustache.render(statsTemplate, {
                 total:          Todos.length,
                 done:           Todos.done().length,
                 remaining:      Todos.remaining().length,
                 remainingWord:  Todos.remaining().length > 1 ? true : false
             }));
+            
             $("ul#todo-list").sortable({
                 connectWith: ".connectedSortable"
             }).disableSelection();
@@ -71,23 +73,13 @@ define([
         // appending its element to the `<ul>`.
         addOne: function addOne (todo) 
         {
-            var view,
-                isIntoRange;
+            var view;
                 
             view = new TodoView({
                 model: todo
-            });
+            });      
             
-            isIntoRange = (
-                this.counter >= (this.firstPage * this.perPage) 
-                &&
-                this.counter < (this.firstPage * this.perPage) + this.perPage   
-            );
-            
-            if (isIntoRange) {             
-                this.$("#todo-list").append(view.render().el);
-            }
-            this.counter += 1;
+            this.$("#todo-list").append(view.render().el);
         },
 
         // Add all items in the **Todos** collection at once.
@@ -142,6 +134,26 @@ define([
             this.tooltipTimeout = _.delay(show, 1000);
         },
         
+        showTasks: function showTasks (firstPage)
+        {
+            var isIntoRange;
+            var that = this;
+            
+            this.firstPage = firstPage || 0;
+
+            this.$("#todo-list li").each(function(index) {
+                isIntoRange = (
+                    that.counter >= (that.firstPage * that.perPage) 
+                    &&
+                    that.counter < (that.firstPage * that.perPage) + that.perPage   
+                );
+                if (!isIntoRange) {
+                    $(this).hide();
+                }
+                that.counter += 1;
+            });
+        },
+        
         onSortreceive: function onSortreceive (e, ui)
         {
             //console.log(this, Todos);
@@ -152,5 +164,5 @@ define([
             $(ui.item[0]).trigger("drop");
         }
     });
-    return AppView;
+    return new AppView;
 });

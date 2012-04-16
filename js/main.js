@@ -15,7 +15,8 @@ require.config({
 });
 
 require([
-    'views/app'
-    ], function(AppView){
-        var app_view = new AppView;
+    // Load my app module and pass it to my definition function
+    "app"
+    ], function(App){
+        App.initialize();
 });
