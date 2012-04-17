@@ -18,8 +18,6 @@ define([
         el: $(".todoapp"),
 
         body: $("body"),
-        
-        counter: 0,
 
         // Our template for the line of statistics at the bottom of the app.
         mainTemplate: Mustache.render(mainTemplate),
@@ -139,21 +137,28 @@ define([
         
         showTasks: function showTasks (firstPage, perPage)
         {
-            var isIntoRange;
-            var that = this;
+            var that,
+                counter,
+                isIntoRange;
+            
+            that = this;
+            counter = 0;
             
             this.firstPage = firstPage || 0;
             this.perPage =  perPage || 20;
-            this.$("#todo-list li").each(function(index) {
+            
+            this.$("#todo-list li").each(function() {
                 isIntoRange = (
-                    that.counter >= (that.firstPage * that.perPage) 
+                    counter >= (that.firstPage * that.perPage) 
                     &&
-                    that.counter < (that.firstPage * that.perPage) + that.perPage   
+                    counter < (that.firstPage * that.perPage) + that.perPage   
                 );
-                if (!isIntoRange) {
+                if (isIntoRange) {
+                    $(this).show();
+                } else {
                     $(this).hide();
                 }
-                that.counter += 1;
+                counter += 1;
             });
         },
         

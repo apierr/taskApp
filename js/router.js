@@ -16,13 +16,12 @@ define([
       // Default
       '*actions': 'defaultAction'
     },
-    defaultAction: function(page, perPage){
-        console.log(page, perPage)
+    defaultAction: function(page, perPage) {
       todoView.showTasks(parseInt(page, 10), parseInt(perPage, 10));
     }
   });
 
-  var initialize = function(){
+  var initialize = function() {
     var app_router = new AppRouter;
     Backbone.history.start();
   };
