@@ -18,7 +18,6 @@ define([
 
         body: $("body"),
         
-        perPage: 2,
         counter: 0,
 
         // Our template for the line of statistics at the bottom of the app.
@@ -134,13 +133,13 @@ define([
             this.tooltipTimeout = _.delay(show, 1000);
         },
         
-        showTasks: function showTasks (firstPage)
+        showTasks: function showTasks (firstPage, perPage)
         {
             var isIntoRange;
             var that = this;
             
             this.firstPage = firstPage || 0;
-
+            this.perPage =  perPage || 20;
             this.$("#todo-list li").each(function(index) {
                 isIntoRange = (
                     that.counter >= (that.firstPage * that.perPage) 

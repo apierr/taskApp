@@ -11,13 +11,14 @@ define([
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Define some URL routes
-      '/:page': 'defaultAction',
+      'display/page:page/perPage:perPage': 'defaultAction',
       
       // Default
       '*actions': 'defaultAction'
     },
-    defaultAction: function(page){
-      todoView.showTasks(parseInt(page, 10));
+    defaultAction: function(page, perPage){
+        console.log(page, perPage)
+      todoView.showTasks(parseInt(page, 10), parseInt(perPage, 10));
     }
   });
 
