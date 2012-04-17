@@ -8,8 +8,9 @@ define([
     'collections/todos',
     'views/todos',
     'text!templates/main.html',
-    'text!templates/stats.html'
-    ], function($, _, Backbone, Router, Mustache, Todos, TodoView, mainTemplate, statsTemplate) {
+    'text!templates/stats.html',
+    'text!templates/navigator.html'
+    ], function($, _, Backbone, Router, Mustache, Todos, TodoView, mainTemplate, statsTemplate, navigator) {
     var AppView = Backbone.View.extend({
 
         // Instead of generating a new element, bind to the existing skeleton of
@@ -60,6 +61,9 @@ define([
                 done:           Todos.done().length,
                 remaining:      Todos.remaining().length,
                 remainingWord:  Todos.remaining().length > 1 ? true : false
+            }));
+            this.$("#navigator").html(Mustache.render(navigator, {
+                navigator: true
             }));
             
             $("ul#todo-list").sortable({
